@@ -1,7 +1,10 @@
 package br.com.pdt.jpaunmanaged.entity
 
-import javax.persistence.*
 import javax.persistence.CascadeType.PERSIST
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.Table
 import javax.validation.constraints.Min
 
 @Entity
@@ -19,11 +22,4 @@ data class Pessoa(
     var telefones: List<Telefone> = emptyList()
 ) {
     constructor() : this(null, null, null)
-
-    @PrePersist
-    fun prePerstist(): Unit = Unit
-
-    @PostPersist
-    fun postPersist(): Unit = Unit
-
 }
