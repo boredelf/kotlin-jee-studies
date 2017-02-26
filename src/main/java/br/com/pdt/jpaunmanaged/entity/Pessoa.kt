@@ -1,16 +1,16 @@
 package br.com.pdt.jpaunmanaged.entity
 
+import javax.persistence.*
 import javax.persistence.CascadeType.PERSIST
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.OneToMany
-import javax.persistence.Table
+import javax.persistence.GenerationType.SEQUENCE
 import javax.validation.constraints.Min
 
 @Entity
 @Table(name = "PESSOA")
 data class Pessoa(
     @Id
+    @GeneratedValue(strategy = SEQUENCE, generator = "PESSOA_SEQ_GEN")
+    @SequenceGenerator(name = "PESSOA_SEQ_GEN", sequenceName = "PESSOA_SEQ")
     var id: Int?,
 
     var nome: String?,
@@ -22,4 +22,6 @@ data class Pessoa(
     var telefones: List<Telefone> = emptyList()
 ) {
     constructor() : this(null, null, null)
+    constructor(nome: String, idade: Int) : this(null, nome, idade)
+    constructor(nome: String, idade: Int, telefones: List<Telefone>) : this(null, nome, idade, telefones)
 }

@@ -17,28 +17,27 @@ class PersistenceTest {
 
     @Test
     fun criarPessoaSemTelefones() = pm.withinTransaction {
-        persist(Pessoa(1, "Shino", 28))
-        assertNotNull(find(Pessoa::class.java, 1))
+        val pessoa = Pessoa("Shino", 28).apply { persist(this) }
+        assertNotNull(find(Pessoa::class.java, pessoa.id))
     }
 
     @Test
     fun criarPessoaComTelefones() = pm.withinTransaction {
         val telefone = Telefone(1, "3333-3333")
-        val pessoa = Pessoa(1, "Shino", 28, listOf(telefone)).apply { persist(this) }
-        val pessoaSalva = find(Pessoa::class.java, pessoa.id)
-        assertEquals(pessoaSalva.telefones[0].numero, telefone.numero)
+        val pessoa = Pessoa("Shino", 28, listOf(telefone)).apply { persist(this) }
+        assertEquals(find(Pessoa::class.java, pessoa.id).telefones.first().numero, telefone.numero)
     }
 
     @Test
     fun removerPessoaDeveRemoverTelefones() = pm.withinTransaction {
         val telefone = Telefone(1, "3333-3333")
-        remove(Pessoa(1, "Shino", 28, listOf(telefone)).apply { persist(this) })
+        remove(Pessoa("Shino", 28, listOf(telefone)).apply { persist(this) })
         assertNull(find(Telefone::class.java, telefone.id))
     }
 
     @Test(expected = ConstraintViolationException::class)
     fun criarPessoaComIdadeAbaixoDoMinimo() = pm.withinTransaction {
-        persist(Pessoa(1, "Shino", 0))
+        persist(Pessoa("Shino", 0))
         flush()
     }
 
