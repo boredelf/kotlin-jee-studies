@@ -7,7 +7,7 @@ import javax.validation.constraints.Min
 
 @Entity
 @Table(name = "PESSOA")
-data class Pessoa(
+data class Pessoa private constructor(
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "PESSOA_SEQ_GEN")
     @SequenceGenerator(name = "PESSOA_SEQ_GEN", sequenceName = "PESSOA_SEQ")

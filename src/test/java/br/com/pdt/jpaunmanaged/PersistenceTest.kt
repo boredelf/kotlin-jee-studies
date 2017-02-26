@@ -23,14 +23,14 @@ class PersistenceTest {
 
     @Test
     fun criarPessoaComTelefones() = pm.withinTransaction {
-        val telefone = Telefone(1, "3333-3333")
+        val telefone = Telefone("3333-3333")
         val pessoa = Pessoa("Shino", 28, listOf(telefone)).apply { persist(this) }
         assertEquals(find(Pessoa::class.java, pessoa.id).telefones.first().numero, telefone.numero)
     }
 
     @Test
     fun removerPessoaDeveRemoverTelefones() = pm.withinTransaction {
-        val telefone = Telefone(1, "3333-3333")
+        val telefone = Telefone("3333-3333")
         remove(Pessoa("Shino", 28, listOf(telefone)).apply { persist(this) })
         assertNull(find(Telefone::class.java, telefone.id))
     }
