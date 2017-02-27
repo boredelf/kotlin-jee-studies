@@ -2,18 +2,29 @@ package br.com.pdt.jpaunmanaged
 
 import br.com.pdt.jpaunmanaged.entity.Pessoa
 import br.com.pdt.jpaunmanaged.entity.Telefone
+import br.com.pdt.jpaunmanaged.junit.WeldJUnit4Runner
 import br.com.pdt.jpaunmanaged.persistence.PersistenceManager
+import br.com.pdt.jpaunmanaged.repository.PessoaRepository
 import org.junit.AfterClass
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.runner.RunWith
+import javax.inject.Inject
 import javax.validation.ConstraintViolationException
 
+@RunWith(WeldJUnit4Runner::class)
 class PersistenceTest {
 
     companion object {
         @JvmStatic val pm = PersistenceManager("jpaUnmanagedPU")
-        @JvmStatic @AfterClass fun tearDownDatabase(): Unit = pm.close()
+        @JvmStatic @AfterClass fun tearDown() = pm.close()
     }
+
+    @Inject
+    private lateinit var pessoaRepository: PessoaRepository
+
+    @Test
+    fun testWeldSE() = pessoaRepository.find()
 
     @Test
     fun criarPessoaSemTelefones() = pm.withinTransaction {
