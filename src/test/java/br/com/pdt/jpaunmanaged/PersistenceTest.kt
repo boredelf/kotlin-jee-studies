@@ -41,4 +41,16 @@ class PersistenceTest {
         flush()
     }
 
+    @Test(expected = ConstraintViolationException::class)
+    fun criarTelefoneComNumeroInvalido() = pm.withinTransaction {
+        persist(Telefone("234-0001"))
+        flush()
+    }
+
+    @Test(expected = ConstraintViolationException::class)
+    fun criarPessoaComTelefoneInvalido() = pm.withinTransaction {
+        persist(Pessoa("Shino", 28, listOf(Telefone("234-0001"))))
+        flush()
+    }
+
 }
