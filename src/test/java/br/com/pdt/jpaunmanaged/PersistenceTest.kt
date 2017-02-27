@@ -4,8 +4,6 @@ import br.com.pdt.jpaunmanaged.entity.Pessoa
 import br.com.pdt.jpaunmanaged.entity.Telefone
 import br.com.pdt.jpaunmanaged.junit.WeldJUnit4Runner
 import br.com.pdt.jpaunmanaged.persistence.PersistenceManager
-import br.com.pdt.jpaunmanaged.repository.PessoaRepository
-import org.junit.AfterClass
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,16 +13,8 @@ import javax.validation.ConstraintViolationException
 @RunWith(WeldJUnit4Runner::class)
 class PersistenceTest {
 
-    companion object {
-        @JvmStatic val pm = PersistenceManager("jpaUnmanagedPU")
-        @JvmStatic @AfterClass fun tearDown() = pm.close()
-    }
-
     @Inject
-    private lateinit var pessoaRepository: PessoaRepository
-
-    @Test
-    fun testWeldSE() = pessoaRepository.find()
+    private lateinit var pm: PersistenceManager
 
     @Test
     fun criarPessoaSemTelefones() = pm.withinTransaction {
