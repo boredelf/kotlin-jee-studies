@@ -8,7 +8,7 @@ import javax.validation.constraints.Pattern
 data class Telefone private constructor(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TELEFONE_SEQ_GEN")
-    @SequenceGenerator(name = "TELEFONE_SEQ_GEN", sequenceName = "TELEFONE_SEQ")
+    @SequenceGenerator(name = "TELEFONE_SEQ_GEN", sequenceName = "TELEFONE_SEQ", allocationSize = 1)
     var id: Int?,
 
     @get:Pattern(regexp = "\\d{4,5}-\\d{4}")

@@ -10,7 +10,7 @@ import javax.validation.constraints.Min
 data class Pessoa private constructor(
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "PESSOA_SEQ_GEN")
-    @SequenceGenerator(name = "PESSOA_SEQ_GEN", sequenceName = "PESSOA_SEQ")
+    @SequenceGenerator(name = "PESSOA_SEQ_GEN", sequenceName = "PESSOA_SEQ", allocationSize = 1)
     var id: Int?,
 
     var nome: String?,
