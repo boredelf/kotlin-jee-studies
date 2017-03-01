@@ -8,11 +8,11 @@
 
         <validation-mode>AUTO</validation-mode>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:jpaunmanaged"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:./db/jpaunmanaged"/>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 </persistence>

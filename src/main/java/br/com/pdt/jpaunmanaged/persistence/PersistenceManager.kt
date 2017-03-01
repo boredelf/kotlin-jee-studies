@@ -24,13 +24,6 @@ class PersistenceManager {
         emf.close()
     }
 
-    fun withinTransaction(block: EntityManager.() -> Unit): Unit {
-        try {
-            em.transaction.begin()
-            block(em)
-        } finally {
-            em.transaction.rollback()
-        }
-    }
+    fun withinTransaction(block: EntityManager.() -> Unit) = block(em)
 
 }
