@@ -20,10 +20,15 @@ class TransactionInterceptor {
         em.transaction.begin()
         try {
             return ctx.proceed()
+        } catch (e: Exception) {
+            em.transaction.rollback()
+            throw e
         } finally {
-            when (getTransactionMode(ctx)) {
-                COMMIT -> em.transaction.commit()
-                else -> em.transaction.rollback()
+            if (em.transaction.isActive) {
+                when (getTransactionMode(ctx)) {
+                    COMMIT -> em.transaction.commit()
+                    else -> em.transaction.rollback()
+                }
             }
         }
     }

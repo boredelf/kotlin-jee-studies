@@ -3,7 +3,7 @@ package br.com.pdt.jpaunmanaged
 import br.com.pdt.jpaunmanaged.entity.Pessoa
 import br.com.pdt.jpaunmanaged.entity.Telefone
 import br.com.pdt.jpaunmanaged.junit.Transactional
-import br.com.pdt.jpaunmanaged.junit.TransactionalModes.ROLLBACK
+import br.com.pdt.jpaunmanaged.junit.TransactionalModes.COMMIT
 import br.com.pdt.jpaunmanaged.junit.WeldJUnit4Runner
 import br.com.pdt.jpaunmanaged.repository.PessoaRepository
 import br.com.pdt.jpaunmanaged.repository.TelefoneRepository
@@ -14,7 +14,7 @@ import javax.inject.Inject
 import javax.persistence.EntityManager
 import javax.validation.ConstraintViolationException
 
-@Transactional(ROLLBACK)
+@Transactional(COMMIT)
 @RunWith(WeldJUnit4Runner::class)
 open class PersistenceTest {
 
