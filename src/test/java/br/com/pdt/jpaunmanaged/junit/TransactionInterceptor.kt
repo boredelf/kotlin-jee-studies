@@ -16,7 +16,7 @@ class TransactionInterceptor {
     val transactionalType = Transactional::class.java
 
     @AroundInvoke
-    fun onTransaction(ctx: InvocationContext): Any? {
+    fun wrapInTransaction(ctx: InvocationContext): Any? {
         em.transaction.begin()
         try {
             return ctx.proceed()
@@ -33,12 +33,11 @@ class TransactionInterceptor {
         }
     }
 
-    fun getTransactionMode(ctx: InvocationContext): TransactionalModes {
+    fun getTransactionMode(ctx: InvocationContext): TransactionalModes =
         if (ctx.method.isAnnotationPresent(transactionalType))
-            return ctx.method.getAnnotation(transactionalType).value
+            ctx.method.getAnnotation(transactionalType).value
         else if (ctx.method.declaringClass.isAnnotationPresent(transactionalType))
-            return ctx.method.declaringClass.getAnnotation(transactionalType).value
-        else return COMMIT
-    }
+            ctx.method.declaringClass.getAnnotation(transactionalType).value
+        else COMMIT
 
 }
